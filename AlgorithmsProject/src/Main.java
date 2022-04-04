@@ -17,25 +17,103 @@ public class Main
 
 	try
 	{
-		reader = new BufferedReader(new FileReader("stops.txt"));
+		reader = new BufferedReader(new FileReader("/Users/diarmomccormack/git/FinalAlgoProject/AlgorithmsProject/stops.txt"));
     	Scanner scanner = new Scanner(reader);
+    	scanner.nextLine();
     	
     	while(scanner.hasNextLine())
     	{
     		String [] line = scanner.nextLine().trim().split(",");
     		
-    		int stopId = Integer.parseInt(line[0]);
-    		int stopCode = Integer.parseInt(line[1]);
-    		String stopName = line[2];
-    		String stopDesc = line[3];
-    		double stopLat = Double.parseDouble(line[4]);
-    		double stopLong = Double.parseDouble(line[5]);
-    		String zoneId = line[6];
-    		String stopURL = line[7];
-    		int locationType = Integer.parseInt(line[8]);
-    		int parentStation = Integer.parseInt(line[9]);
-    		stopList.add(new busStops(stopId, stopCode, stopName, stopDesc, stopLat, stopLong, zoneId, stopURL, locationType, parentStation ));
-    
+    		for (int i =0; i< line.length;i++) 
+    		{
+    			System.out.println(line[i]);
+    		}
+    		
+    		
+    		int stopId;
+    		if(!line[0].equals(" ")) 
+    		{
+    			stopId = Integer.parseInt(line[0]);	
+    		}
+    		else 
+    		{
+    			stopId=0;
+    		}
+    		int stopCode;
+    		if(!line[1].contains(" ")) 
+    		{
+    			stopCode = Integer.parseInt(line[1]);
+    		}
+    		else 
+    		{
+    			stopCode=0;
+    		}
+    		String stopName;
+    		if(!line[2].equals(" ")) 
+    		{
+    			stopName = line[2];
+    		}
+    		else 
+    		{
+    			stopName = null;
+    		}
+    		String stopDesc;
+    		if(!line[3].equals(" ")) 
+    		{
+    			stopDesc = line[3];
+    		}
+    		else 
+    		{
+    			stopDesc = null;
+    		}
+    		double stopLat;
+    		if(!line[4].equals(" ")) 
+    		{
+    			stopLat = Double.parseDouble(line[4]);	
+    		}
+    		else 
+    		{
+    			stopLat=0;
+    		}
+    		double stopLong;
+    		if(!line[5].equals(" ")) 
+    		{
+    			stopLong = Double.parseDouble(line[5]);	
+    		}
+    		else 
+    		{
+    			stopLong=0;
+    		}
+    		String zoneId;
+    		if(!line[6].equals(" ")) 
+    		{
+    			zoneId = line[6];
+    		}
+    		else 
+    		{
+    			zoneId = null;
+    		}
+    		String stopURL;
+    		if(!line[7].equals(" ")) 
+    		{
+    			stopURL = line[7];
+    		}
+    		else 
+    		{
+    			stopURL = null;
+    		}
+    		int locationType;
+    		if(!line[8].equals(" ")) 
+    		{
+    			locationType = Integer.parseInt(line[8]);
+    		}
+    		else 
+    		{
+    			locationType=0;
+    		}
+    		//parent statiion?
+    		stopList.add(new busStops(stopId, stopCode, stopName, stopDesc, stopLat, stopLong, zoneId, stopURL, locationType));
     	}
 	}
 	catch(Exception x)
@@ -43,26 +121,106 @@ public class Main
 	System.out.print("Error: File will not read in");
 	}
 	
+	
 	try
 	{
-		reader = new BufferedReader(new FileReader("stop_times.txt"));
+		reader = new BufferedReader(new FileReader("/Users/diarmomccormack/git/FinalAlgoProject/AlgorithmsProject/stop_times.txt"));
     	Scanner scanner = new Scanner(reader);
+    	scanner.nextLine();
     	
     	while(scanner.hasNextLine())
     	{
     		String [] line = scanner.nextLine().trim().split(",");
     		
-    		int tripId = Integer.parseInt(line[0]);
-    		String arrivalTime = line[2];
-    		String departureTime = line[3];
-    		int stopId = Integer.parseInt(line[4]);
-    		int stopSequence = Integer.parseInt(line[5]);
-    		int stopHeadSign = Integer.parseInt(line[6]);
-    		int pickupType = Integer.parseInt(line[7]);
-    		int dropOffType = Integer.parseInt(line[8]);
-    		int shapeDistTraveled = Integer.parseInt(line[9]);
+    		for (int i =0; i< line.length;i++) 
+    		{
+    			System.out.println(line[i]);
+    		}
     		
-    		stopTimesList.add(new busStopTimes(tripId, arrivalTime, departureTime, stopId, stopSequence, stopHeadSign, pickupType, dropOffType, shapeDistTraveled));
+    		int tripId;
+    		if(!line[0].equals(" ")) 
+    		{
+    			tripId = Integer.parseInt(line[0]);
+    		}
+    		else 
+    		{
+    			tripId=0;
+    		}
+ 
+    		String arrivalTime;
+    		if(!line[1].equals(" ")) 
+    		{
+    			arrivalTime = line[1];
+    		}
+    		else 
+    		{
+    			arrivalTime = null;
+    		}
+    		String departureTime;
+    		if(!line[2].equals(" ")) 
+    		{
+    			departureTime = line[2];
+    		}
+    		else 
+    		{
+    			departureTime = null;
+    		}
+    		int stopId;
+    		if(!line[3].equals(" ")) 
+    		{
+    			stopId = Integer.parseInt(line[3]);
+    		}
+    		else 
+    		{
+    			stopId=0;
+    		}
+    		int stopSequence;
+    		if(!line[4].equals(" ")) 
+    		{
+    			stopSequence = Integer.parseInt(line[4]);
+    		}
+    		else 
+    		{
+    			stopSequence=0;
+    		}
+    		int stopHeadSign;
+    		if(!line[5].equals(" ")) 
+    		{
+    			stopHeadSign = Integer.parseInt(line[5]);
+    		}
+    		else 
+    		{
+    			stopHeadSign=0;
+    		}
+    		int pickupType;
+    		if(!line[6].equals(" ")) 
+    		{
+    			pickupType = Integer.parseInt(line[6]);
+    		}
+    		else 
+    		{
+    			pickupType=0;
+    		}
+    		int dropOffType;
+    		if(!line[7].equals(" ")) 
+    		{
+    			dropOffType = Integer.parseInt(line[7]);
+    		}
+    		else 
+    		{
+    			dropOffType=0;
+    		}
+    		/*int shapeDistTraveled;
+    		if(!line[8].equals(" ")) 
+    		{
+    			shapeDistTraveled = Integer.parseInt(line[8]);
+    		}
+    		else 
+    		{
+    			shapeDistTraveled=0;
+    		}
+    		*/
+    		stopTimesList.add(new busStopTimes(tripId, arrivalTime, departureTime, stopId, stopSequence, stopHeadSign, pickupType, dropOffType));
  
     	}
  	
@@ -74,17 +232,50 @@ public class Main
 	
 	try
 	{
-		reader = new BufferedReader(new FileReader("transfers.txt"));
+		reader = new BufferedReader(new FileReader("/Users/diarmomccormack/git/FinalAlgoProject/AlgorithmsProject/transfers.txt"));
     	Scanner scanner = new Scanner(reader);
+    	scanner.nextLine();
     	
     	while(scanner.hasNextLine())
     	{
     		String [] line = scanner.nextLine().trim().split(",");
     		
-    		int fromStopID = Integer.parseInt(line[0]);
-    		int toStopId = Integer.parseInt(line[1]);
-    		int transferTime = Integer.parseInt(line[1]);
-    		int minTransferTime = Integer.parseInt(line[2]);
+    		int fromStopID;
+    		if(!line[0].equals(" ")) 
+    		{
+    			fromStopID = Integer.parseInt(line[8]);
+    		}
+    		else 
+    		{
+    			fromStopID=0;
+    		}
+    		int toStopId;
+    		if(!line[1].equals(" ")) 
+    		{
+    			toStopId = Integer.parseInt(line[1]);
+    		}
+    		else 
+    		{
+    			toStopId=0;
+    		}
+    		int transferTime;
+    		if(!line[2].equals(" ")) 
+    		{
+    			transferTime = Integer.parseInt(line[2]);
+    		}
+    		else 
+    		{
+    			transferTime=0;
+    		}
+    		int minTransferTime;
+    		if(!line[3].equals(" ")) 
+    		{
+    			minTransferTime= Integer.parseInt(line[3]);
+    		}
+    		else 
+    		{
+    			minTransferTime=0;
+    		}
     		transfersList.add(new busStopTransfers(fromStopID,toStopId,transferTime,minTransferTime));
     	}
 	}

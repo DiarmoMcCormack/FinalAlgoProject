@@ -12,7 +12,7 @@ public class busStops {
 	int locationType;
 	int parentStation;
 	
-	busStops( int stopId, int stopCode, String stopName, String stopDesc, double stopLat, double stopLong, String ZoneId, String stopURL, int locationType, int parentStation){
+	busStops( int stopId, int stopCode, String stopName, String stopDesc, double stopLat, double stopLong, String ZoneId, String stopURL, int locationType){
 		this.stopId = stopId;
 		this.stopCode = stopCode;
 		this.stopName = stopName;
@@ -22,7 +22,6 @@ public class busStops {
 		this.zoneId = zoneId;
 		this.stopURL = stopURL;
 		this.locationType = locationType;
-		this.parentStation = parentStation;
 		}
 	
 

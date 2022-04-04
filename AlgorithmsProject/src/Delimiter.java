@@ -42,11 +42,7 @@ static String parentStation;
 			
 			String splitName[] = stopName.split(" ");
 			
-			scanner.useDelimiter(pattern)
-			
-			
-			
-			
+		
 			}
 			
 		} catch (FileNotFoundException e) {

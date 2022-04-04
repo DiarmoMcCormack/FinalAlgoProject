@@ -24,13 +24,7 @@ public class Main
     	while(scanner.hasNextLine())
     	{
     		String [] line = scanner.nextLine().trim().split(",");
-    		
-    		for (int i =0; i< line.length;i++) 
-    		{
-    			System.out.println(line[i]);
-    		}
-    		
-    		
+    	
     		int stopId;
     		if(!line[0].equals(" ")) 
     		{
@@ -128,14 +122,9 @@ public class Main
     	Scanner scanner = new Scanner(reader);
     	scanner.nextLine();
     	
-    	while(scanner.hasNextLine())
-    	{
+    	while(scanner.hasNextLine()){
     		String [] line = scanner.nextLine().trim().split(",");
-    		
-    		for (int i =0; i< line.length;i++) 
-    		{
-    			System.out.println(line[i]);
-    		}
+    	
     		
     		int tripId;
     		if(!line[0].equals(" ")) 
@@ -175,7 +164,7 @@ public class Main
     			stopId=0;
     		}
     		int stopSequence;
-    		if(!line[4].equals(" ")) 
+    		if(!line[4].equals("")) 
     		{
     			stopSequence = Integer.parseInt(line[4]);
     		}
@@ -184,7 +173,7 @@ public class Main
     			stopSequence=0;
     		}
     		int stopHeadSign;
-    		if(!line[5].equals(" ")) 
+    		if(!line[5].equals("")) 
     		{
     			stopHeadSign = Integer.parseInt(line[5]);
     		}
@@ -238,17 +227,24 @@ public class Main
     	
     	while(scanner.hasNextLine())
     	{
+    		
     		String [] line = scanner.nextLine().trim().split(",");
+    		
+    		for (int i = 0; i<line.length;i++) 
+    		{
+    		System.out.println(line[i]);
+    		}
     		
     		int fromStopID;
     		if(!line[0].equals(" ")) 
     		{
-    			fromStopID = Integer.parseInt(line[8]);
+    			fromStopID = Integer.parseInt(line[0]);
     		}
     		else 
     		{
     			fromStopID=0;
     		}
+    		
     		int toStopId;
     		if(!line[1].equals(" ")) 
     		{
@@ -258,16 +254,18 @@ public class Main
     		{
     			toStopId=0;
     		}
-    		int transferTime;
+    		
+    		int transferType;
     		if(!line[2].equals(" ")) 
     		{
-    			transferTime = Integer.parseInt(line[2]);
+    			transferType = Integer.parseInt(line[2]);
     		}
     		else 
     		{
-    			transferTime=0;
+    			transferType=0;
     		}
-    		int minTransferTime;
+    		
+    		/*int minTransferTime;
     		if(!line[3].equals(" ")) 
     		{
     			minTransferTime= Integer.parseInt(line[3]);
@@ -275,8 +273,10 @@ public class Main
     		else 
     		{
     			minTransferTime=0;
-    		}
-    		transfersList.add(new busStopTransfers(fromStopID,toStopId,transferTime,minTransferTime));
+    		}*/
+    		
+    		transfersList.add(new busStopTransfers(fromStopID,toStopId,transferType));
+    		
     	}
 	}
 	catch(Exception x)
@@ -285,8 +285,4 @@ public class Main
 	}
 	
 	}
-	
-	
-	
-	
 }

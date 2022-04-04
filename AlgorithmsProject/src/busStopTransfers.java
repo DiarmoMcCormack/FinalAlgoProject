@@ -3,16 +3,12 @@ public class busStopTransfers {
 	
 	int fromStopID;
 	int toStopId;
-	int transferTime;
-	int minTransferTime;
+	int transferType;
 	
-	busStopTransfers (int fromStopID, int toStopID, int transferType, int minTransferTime){
+	busStopTransfers (int fromStopID, int toStopID, int transferType){
 		this.fromStopID=fromStopID;
 		this.toStopId=toStopID;
-		this.transferTime=transferTime;
-		this.minTransferTime=minTransferTime;
+		this.transferType=transferType;
 		}
 	
-	
-
 }

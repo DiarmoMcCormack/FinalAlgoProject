@@ -289,7 +289,12 @@ public class Main
 			+ "with a given arrival time");
 	
 	Scanner scanner = new Scanner(System.in);
-	if(scanner.nextInt()==1)
+	int input = 0;
+	if(scanner.hasNextInt())
+	{
+	input=scanner.nextInt()	;
+	}
+	if(input==1)
 	{
 		System.out.println("Enter your beginning StopID");
 		int beginningStop;
@@ -300,14 +305,18 @@ public class Main
 		finalStop = scanner.nextInt();
 		
 		ShortestPaths(beginningStop, finalStop);
-		
-		
 	}
-	else if(scanner.nextInt()==2)
+	else if(input==2)
 	{
 		
+		System.out.println("Enter your bus stop or even the first few letters");
+		String busStop;
+		busStop = scanner.next();
+		
+		searchByName(busStop);	
+		
 	}
-	else if(scanner.nextInt()==3) 
+	else if(input==3) 
 	{
 		
 	}
@@ -359,9 +368,46 @@ public static void ShortestPaths(int beginning, int end)
 	}	
 }
 	
+
+public static void searchByName(String search) 
+{
+	
+	TST tst = new TST();
+	
+	for(int i = 0; i<stopList.size();i++) 
+	{
+		tst.put(stopList.get(i).stopName, stopList.get(i));
+	}	
+	Queue<String> containsMatchingString = (Queue<String>) tst.keysWithPrefix(search);
+	
+	for(int i =0 ; i<containsMatchingString.size();i++) 
+	{
+		busStops stops = null;
+		String temporaryStopName = containsMatchingString.dequeue();
+		for(int j =0 ; j< stopList.size(); j++) 
+		{
+			if(temporaryStopName.equals(stopList.get(j).stopName))
+			{
+				stops = stopList.get(j);
+				break;
+			}
+		}
+		System.out.println("Stop ID = " + stops.stopId);
+		System.out.println("Stop Name = " + stops.stopName);
+		System.out.println("Stop Destination = " + stops.stopDesc);
+		System.out.println("Stop Latitude = " + stops.stopLat);
+		System.out.println("Stop Longitude = " +stops.stopLong);
+		System.out.println("Zone ID =  " + stops.zoneId);
+		System.out.println("Stop URL = " + stops.stopURL);
+		System.out.println("Location Type = " + stops.locationType);
+		System.out.println("Parent Station = " + stops.parentStation);
+		System.out.println("\n");
+		
+	}
 	
 	
 	
+}
 }
 
 

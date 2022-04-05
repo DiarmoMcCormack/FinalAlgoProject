@@ -200,19 +200,25 @@ public class Main
     		{
     			dropOffType=0;
     		}
-    		/*int shapeDistTraveled;
-    		if(!line[8].equals(" ")) 
+    		double shapeDistTraveled=0;
+    		if(line.length<9) 
     		{
-    			shapeDistTraveled = Integer.parseInt(line[8]);
+    			shapeDistTraveled = 0;
+    		}
+    		else if(!line[8].equals(" ")) 
+    		{
+    			shapeDistTraveled = Double.parseDouble(line[8]);
     		}
     		else 
     		{
     			shapeDistTraveled=0;
     		}
-    		*/
-    		If()
-    		stopTimesList.add(new busStopTimes(tripId, arrivalTime, departureTime, stopId, stopSequence, stopHeadSign, pickupType, dropOffType));
- 
+    		String [] delimiter = arrivalTime.trim().split(":");
+
+    		if(Integer.parseInt(delimiter[0]) < 24 && Integer.parseInt(delimiter[1]) < 60 && Integer.parseInt(delimiter[2])<60) 
+    		{
+    			stopTimesList.add(new busStopTimes(tripId, arrivalTime, departureTime, stopId, stopSequence, stopHeadSign, pickupType, dropOffType, shapeDistTraveled));
+    		}
     	}
  	
 	}
@@ -319,10 +325,13 @@ public class Main
 	}
 	else if(input==3) 
 	{
+		System.out.println("Enter your arrival time in the format of hh:mm:ss ");
+		String arrivalTime;
+		arrivalTime = scanner.next();
+		
+		searchByArrivalTime(arrivalTime);
+		
 	
-		
-		
-		
 	}
 	else 
 	{
@@ -409,6 +418,50 @@ public static void searchByName(String search)
 		
 	}
 	
+}
+
+public static void searchByArrivalTime(String arrivalTime) 
+{
+	TST tst = new TST();
+	
+	for(int i = 0; i<stopTimesList.size();i++) 
+	{
+		tst.put(stopTimesList.get(i).arrivalTime, stopTimesList.get(i));
+	}
+	
+	
+	Queue<String> containsMatchingString = (Queue<String>) tst.keysThatMatch(arrivalTime);
+	
+	for(int i =0 ; i<containsMatchingString.size();i++) 
+	{
+		busStopTimes busStopTimes= null;
+		String temporaryStopName = containsMatchingString.dequeue();
+		for(int j =0 ; j< stopTimesList.size(); j++) 
+		{
+			if(temporaryStopName.equals(stopTimesList.get(j).arrivalTime))
+			{
+				busStopTimes = stopTimesList.get(j);
+				break;
+			}
+		}
+		
+		System.out.println("Trip ID = " + busStopTimes.tripId);
+		System.out.println("Arrival Time = " + busStopTimes.arrivalTime);
+		System.out.println("Departure Time " + busStopTimes.departureTime);
+		System.out.println("Stop ID = " + busStopTimes.stopId);
+		System.out.println("Stop Sequence = " + busStopTimes.stopSequence);
+		System.out.println("Stop Headsign = " + busStopTimes.stopHeadSign);
+		System.out.println("Pickup Type = " + busStopTimes.pickuptype);
+		System.out.println("Drop off Type = " + busStopTimes.dropOffType);
+		System.out.println("Shape Distance Travelled = " + busStopTimes.shapeDistTraveled);
+		System.out.println("\n");
+		
+}
+
+
+
+
+
 }
 }
 

@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class Main 
+public class Main
 {
 	static ArrayList<busStopTransfers> transfersList = new ArrayList<busStopTransfers>();
 	static ArrayList<busStops> stopList = new ArrayList<busStops>();
 	static ArrayList<busStopTimes> stopTimesList = new ArrayList<busStopTimes>();
+	
+	static ArrayList<DirectedEdge> edgeList = new ArrayList<DirectedEdge>();
 	
 	public static void main (String []args) {
 	
@@ -106,7 +108,6 @@ public class Main
     		{
     			locationType=0;
     		}
-    		//parent statiion?
     		stopList.add(new busStops(stopId, stopCode, stopName, stopDesc, stopLat, stopLong, zoneId, stopURL, locationType));
     	}
 	}
@@ -229,11 +230,7 @@ public class Main
     	{
     		
     		String [] line = scanner.nextLine().trim().split(",");
-    		
-    		for (int i = 0; i<line.length;i++) 
-    		{
-    		System.out.println(line[i]);
-    		}
+    
     		
     		int fromStopID;
     		if(!line[0].equals(" ")) 
@@ -265,18 +262,20 @@ public class Main
     			transferType=0;
     		}
     		
-    		/*int minTransferTime;
-    		if(!line[3].equals(" ")) 
+    		int minTransferTime;
+    		if(line.length < 4)
+    		{
+    			minTransferTime = 0;
+    		}
+    		else if((!line[3].equals(" "))  )
     		{
     			minTransferTime= Integer.parseInt(line[3]);
     		}
     		else 
     		{
     			minTransferTime=0;
-    		}*/
-    		
-    		transfersList.add(new busStopTransfers(fromStopID,toStopId,transferType));
-    		
+    		}
+    		  		transfersList.add(new busStopTransfers(fromStopID,toStopId,transferType, minTransferTime));
     	}
 	}
 	catch(Exception x)
@@ -284,5 +283,87 @@ public class Main
 		System.out.print("Error: File will not read in");
 	}
 	
+	System.out.println("Welcome to the Vancouver Bus System");
+	
+	System.out.println("Please enter 1 to find the shortest routes, enter 2 to search for a bus stop by name, enter 3 to search for all trips "
+			+ "with a given arrival time");
+	
+	Scanner scanner = new Scanner(System.in);
+	if(scanner.nextInt()==1)
+	{
+		System.out.println("Enter your beginning StopID");
+		int beginningStop;
+		beginningStop = scanner.nextInt();
+		
+		System.out.println("Enter your final StopID");
+		int finalStop;
+		finalStop = scanner.nextInt();
+		
+		ShortestPaths(beginningStop, finalStop);
+		
+		
 	}
+	else if(scanner.nextInt()==2)
+	{
+		
+	}
+	else if(scanner.nextInt()==3) 
+	{
+		
+	}
+	else 
+	{
+		System.out.println("Please enter a valid input of 1,2 or 3");
+	}
+	}
+	
+public static void ShortestPaths(int beginning, int end)	
+{
+	
+	for(int i = 0;i<transfersList.size();i++)
+	{
+		double weight = 0;
+		if(transfersList.get(i).transferType == 0) 
+		{
+			weight = 2;
+		}
+		else 
+		{
+			weight=transfersList.get(i).minTransferTime/100;
+		}
+		edgeList.add(new DirectedEdge(transfersList.get(i).fromStopID, transfersList.get(i).toStopId,weight));
+	}
+	
+	for(int i =0 ; i< stopTimesList.size()-1; i++) 
+	{
+		if(stopTimesList.get(i).tripId==stopTimesList.get(i+1).tripId) 
+		{
+			edgeList.add(new DirectedEdge(stopTimesList.get(i).stopId, stopTimesList.get(i+1).stopId,1));
+		}	
+	}
+	
+	EdgeWeightedDigraph digraph = new EdgeWeightedDigraph(edgeList.size());
+	for(int i=0; i<edgeList.size(); i++) 
+	{
+		digraph.addEdge(edgeList.get(i));
+	}
+	
+	DijkstraSP sp = new DijkstraSP(digraph, beginning);
+	if(!sp.hasPathTo(end))
+	{
+		System.out.print("There is no route in this case.");
+	}
+	else 
+	{
+		System.out.print("shortest distance is " + sp.distTo(end));	
+	}	
 }
+	
+	
+	
+	
+}
+
+
+
+

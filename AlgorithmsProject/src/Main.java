@@ -210,6 +210,7 @@ public class Main
     			shapeDistTraveled=0;
     		}
     		*/
+    		If()
     		stopTimesList.add(new busStopTimes(tripId, arrivalTime, departureTime, stopId, stopSequence, stopHeadSign, pickupType, dropOffType));
  
     	}
@@ -318,6 +319,9 @@ public class Main
 	}
 	else if(input==3) 
 	{
+	
+		
+		
 		
 	}
 	else 
@@ -405,10 +409,9 @@ public static void searchByName(String search)
 		
 	}
 	
-	
-	
 }
 }
+
 
 
 

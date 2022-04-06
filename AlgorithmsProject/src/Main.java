@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -136,25 +138,18 @@ public class Main
     		{
     			tripId=0;
     		}
+ // checking if arrival time is valid, the object will only be created if so
+    		String arrivalTime1 = line[1];
+    		if (checkTimes(arrivalTime1)==true) 
+    		{
+    			String arrivalTime = arrivalTime1;
+    			//System.out.print("done");
+    		
+    		String departureTime1 = line[2];
+    		if (checkTimes(departureTime1)==true) 
+    		{
+    			String departureTime = departureTime1;
  
-    		String arrivalTime;
-    		if(!line[1].equals(" ")) 
-    		{
-    			arrivalTime = line[1];
-    		}
-    		else 
-    		{
-    			arrivalTime = null;
-    		}
-    		String departureTime;
-    		if(!line[2].equals(" ")) 
-    		{
-    			departureTime = line[2];
-    		}
-    		else 
-    		{
-    			departureTime = null;
-    		}
     		int stopId;
     		if(!line[3].equals(" ")) 
     		{
@@ -215,13 +210,13 @@ public class Main
     		}
     		String [] delimiter = arrivalTime.trim().split(":");
 
-    		if(Integer.parseInt(delimiter[0]) < 24 && Integer.parseInt(delimiter[1]) < 60 && Integer.parseInt(delimiter[2])<60) 
-    		{
+    		//if(Integer.parseInt(delimiter[0]) < 24 && Integer.parseInt(delimiter[1]) < 60 && Integer.parseInt(delimiter[2])<60) 
+    		
     			stopTimesList.add(new busStopTimes(tripId, arrivalTime, departureTime, stopId, stopSequence, stopHeadSign, pickupType, dropOffType, shapeDistTraveled));
-    		}
-    	}
+    		
+    	}}
  	
-	}
+	}}
 	catch(Exception x)
 	{
 		System.out.print("Error: File will not read in");
@@ -294,6 +289,7 @@ public class Main
 	
 	System.out.println("Please enter 1 to find the shortest routes, enter 2 to search for a bus stop by name, enter 3 to search for all trips "
 			+ "with a given arrival time");
+	//System.out.print(stopTimesList.size());
 	
 	Scanner scanner = new Scanner(System.in);
 	int input = 0;
@@ -329,9 +325,8 @@ public class Main
 		String arrivalTime;
 		arrivalTime = scanner.next();
 		
-		searchByArrivalTime(arrivalTime);
+		searchByArrivalTime(arrivalTime, stopTimesList);
 		
-	
 	}
 	else 
 	{
@@ -420,52 +415,87 @@ public static void searchByName(String search)
 	
 }
 
-public static void searchByArrivalTime(String arrivalTime) 
+public static void searchByArrivalTime(String arrivalTime1, ArrayList<busStopTimes> stopTimes) 
 {
-	TST tst = new TST();
+	//TST tst = new TST();
 	
-	for(int i = 0; i<stopTimesList.size();i++) 
+	//for(int i = 0; i<stopTimesList.size();i++) 
+	//{
+	//	tst.put(stopTimesList.get(i).arrivalTime, stopTimesList.get(i));
+	//}
+	
+	
+	//Queue<String> containsMatchingString = (Queue<String>) tst.keysWithPrefix(arrivalTime);
+	ArrayList<busStopTimes> stopsWithTimes = new ArrayList<busStopTimes>();
+	for (int i =0 ; i<stopTimes.size() ; i++)
 	{
-		tst.put(stopTimesList.get(i).arrivalTime, stopTimesList.get(i));
-	}
-	
-	
-	Queue<String> containsMatchingString = (Queue<String>) tst.keysThatMatch(arrivalTime);
-	
-	for(int i =0 ; i<containsMatchingString.size();i++) 
-	{
-		busStopTimes busStopTimes= null;
-		String temporaryStopName = containsMatchingString.dequeue();
-		for(int j =0 ; j< stopTimesList.size(); j++) 
+		String myTime = stopTimes.get(i).arrivalTime;
+		//System.out.println(stopTimes.get(i).arrivalTime);
+		if(myTime.equals(arrivalTime1)) 
 		{
-			if(temporaryStopName.equals(stopTimesList.get(j).arrivalTime))
-			{
-				busStopTimes = stopTimesList.get(j);
-				break;
-			}
+			stopsWithTimes.add(stopTimes.get(i));
 		}
-		
-		System.out.println("Trip ID = " + busStopTimes.tripId);
-		System.out.println("Arrival Time = " + busStopTimes.arrivalTime);
-		System.out.println("Departure Time " + busStopTimes.departureTime);
-		System.out.println("Stop ID = " + busStopTimes.stopId);
-		System.out.println("Stop Sequence = " + busStopTimes.stopSequence);
-		System.out.println("Stop Headsign = " + busStopTimes.stopHeadSign);
-		System.out.println("Pickup Type = " + busStopTimes.pickuptype);
-		System.out.println("Drop off Type = " + busStopTimes.dropOffType);
-		System.out.println("Shape Distance Travelled = " + busStopTimes.shapeDistTraveled);
+	}
+	for (int i =0 ; i<stopsWithTimes.size() ; i++) 
+	{
+		System.out.println("Trip ID = " + stopsWithTimes.get(i).tripId);
+		System.out.println("Arrival Time = " + stopsWithTimes.get(i).arrivalTime);
+		System.out.println("Departure Time " + stopsWithTimes.get(i).departureTime);
+		System.out.println("Stop ID = " + stopsWithTimes.get(i).stopId);
+		System.out.println("Stop Sequence = " + stopsWithTimes.get(i).stopSequence);
+		System.out.println("Stop Headsign = " + stopsWithTimes.get(i).stopHeadSign);
+		System.out.println("Pickup Type = " + stopsWithTimes.get(i).pickuptype);
+		System.out.println("Drop off Type = " + stopsWithTimes.get(i).dropOffType);
+		System.out.println("Shape Distance Travelled = " + stopsWithTimes.get(i).shapeDistTraveled);
 		System.out.println("\n");
 		
+	}
+	
+// double for loop , brute force method. TST would be quicker but harder to implement.
+
+}
+
+public static boolean checkTimes(String times) 
+{
+	char c1 = '1';
+	char c2 = '2';
+	if(times.charAt(0) == ' ')
+	{
+		String timeUpdated = addzero(times);
+		try {
+			LocalTime.parse(timeUpdated);
+			return true;
+		}
+		catch(DateTimeParseException | NullPointerException e)
+		{
+			return false;
+		}
+	}
+	else if (times.charAt(0) == c1 || times.charAt(0) == c2) 
+	{
+		try {
+			LocalTime.parse(times);
+			return true;
+		}
+		catch(DateTimeParseException | NullPointerException e)
+		{
+			return false;
+		}
+	}
+	else return false;
+}
+public static String addzero(String time) {
+	//String start = time.substring(0);
+	String NewString = "0" + time.substring(1);
+	//System.out.println(NewString);
+	return NewString;
+}
+
 }
 
 
-
-
-
-}
-}
-
-
-
+// 5 min video
+// error check - make it return valid time
+// quit too
 
 

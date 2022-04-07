@@ -288,7 +288,7 @@ public class Main
 	System.out.println("Welcome to the Vancouver Bus System");
 	
 	System.out.println("Please enter 1 to find the shortest routes, enter 2 to search for a bus stop by name, enter 3 to search for all trips "
-			+ "with a given arrival time");
+			+ "with a given arrival time, Enter 4 to quit");
 	//System.out.print(stopTimesList.size());
 	
 	Scanner scanner = new Scanner(System.in);
@@ -328,7 +328,11 @@ public class Main
 		searchByArrivalTime(arrivalTime, stopTimesList);
 		
 	}
-	else 
+	else if(input==4)
+	{
+		System.out.print("Goodbye");
+	}
+	else	
 	{
 		System.out.println("Please enter a valid input of 1,2 or 3");
 	}

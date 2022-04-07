@@ -287,6 +287,10 @@ public class Main
 	
 	System.out.println("Welcome to the Vancouver Bus System");
 	
+	boolean quit = false;
+	while(!quit)
+	{
+	
 	System.out.println("Please enter 1 to find the shortest routes, enter 2 to search for a bus stop by name, enter 3 to search for all trips "
 			+ "with a given arrival time, Enter 4 to quit");
 	//System.out.print(stopTimesList.size());
@@ -315,6 +319,7 @@ public class Main
 		System.out.println("Enter your bus stop or even the first few letters");
 		String busStop;
 		busStop = scanner.next();
+		busStop = busStop.toUpperCase();
 		
 		searchByName(busStop);	
 		
@@ -330,11 +335,13 @@ public class Main
 	}
 	else if(input==4)
 	{
-		System.out.print("Goodbye");
+		quit = true;
+		System.out.print("Thank you and Goodbye!");
 	}
 	else	
 	{
-		System.out.println("Please enter a valid input of 1,2 or 3");
+		System.out.println("Please enter a valid input of 1,2,3 or 4 to quit.");
+	}
 	}
 	}
 	
@@ -499,7 +506,6 @@ public static String addzero(String time) {
 
 
 // 5 min video
-// error check - make it return valid time
-// quit too
+
 
 

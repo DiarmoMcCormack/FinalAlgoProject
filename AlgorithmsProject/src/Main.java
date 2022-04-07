@@ -505,7 +505,4 @@ public static String addzero(String time) {
 }
 
 
-// 5 min video
-
-
 

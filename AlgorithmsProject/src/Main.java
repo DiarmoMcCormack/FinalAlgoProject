@@ -5,8 +5,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-
 public class Main
 {
 	static ArrayList<busStopTransfers> transfersList = new ArrayList<busStopTransfers>();
@@ -18,7 +16,6 @@ public class Main
 	public static void main (String []args) {
 	
 	BufferedReader reader = null;
-
 	try
 	{
 		reader = new BufferedReader(new FileReader("/Users/diarmomccormack/git/FinalAlgoProject/AlgorithmsProject/stops.txt"));
@@ -209,7 +206,6 @@ public class Main
     			shapeDistTraveled=0;
     		}
     		String [] delimiter = arrivalTime.trim().split(":");
-
     		//if(Integer.parseInt(delimiter[0]) < 24 && Integer.parseInt(delimiter[1]) < 60 && Integer.parseInt(delimiter[2])<60) 
     		
     			stopTimesList.add(new busStopTimes(tripId, arrivalTime, departureTime, stopId, stopSequence, stopHeadSign, pickupType, dropOffType, shapeDistTraveled));
@@ -379,15 +375,16 @@ public static void ShortestPaths(int beginning, int end)
 	DijkstraSP sp = new DijkstraSP(digraph, beginning);
 	if(!sp.hasPathTo(end))
 	{
-		System.out.print("There is no route in this case.");
+		System.out.print("There is no route in this case. Please enter valid StopIDs. ");
+		System.out.println("\n");
 	}
 	else 
 	{
 		System.out.print("shortest distance is " + sp.distTo(end));	
+		System.out.println("\n");
 	}	
 }
 	
-
 public static void searchByName(String search) 
 {
 	
@@ -425,16 +422,8 @@ public static void searchByName(String search)
 	}
 	
 }
-
 public static void searchByArrivalTime(String arrivalTime1, ArrayList<busStopTimes> stopTimes) 
 {
-	//TST tst = new TST();
-	
-	//for(int i = 0; i<stopTimesList.size();i++) 
-	//{
-	//	tst.put(stopTimesList.get(i).arrivalTime, stopTimesList.get(i));
-	//}
-	
 	
 	//Queue<String> containsMatchingString = (Queue<String>) tst.keysWithPrefix(arrivalTime);
 	ArrayList<busStopTimes> stopsWithTimes = new ArrayList<busStopTimes>();
@@ -463,9 +452,7 @@ public static void searchByArrivalTime(String arrivalTime1, ArrayList<busStopTim
 	}
 	
 // double for loop , brute force method. TST would be quicker but harder to implement.
-
 }
-
 public static boolean checkTimes(String times) 
 {
 	char c1 = '1';
@@ -501,8 +488,6 @@ public static String addzero(String time) {
 	//System.out.println(NewString);
 	return NewString;
 }
-
 }
-
 
 
